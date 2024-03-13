@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from "class-validator"
+import {  IsEmpty, IsNotEmpty, IsString } from "class-validator"
+import { User } from "../../auth/schemas/user.schema"
 
 
 export class CreateNotesDto {
@@ -10,4 +11,7 @@ export class CreateNotesDto {
     @IsNotEmpty()
     @IsString()
     readonly description: string
+
+    @IsEmpty({message:"You cannot pass user id"})
+    readonly user: User
 }
