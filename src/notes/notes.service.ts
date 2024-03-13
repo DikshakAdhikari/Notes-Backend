@@ -22,14 +22,14 @@ export class NotesService {
         return res
     }
 
-    async findById(id: string): Promise<Notes> {
+    async findById(id: string): Promise<Notes[]> {
         const isValidId= mongoose.isValidObjectId(id);
 
         if(!isValidId){
             throw new BadRequestException('Please enter correct id.')
         }
 
-        const notes= await this.notesModel.findById(id)
+        const notes= await this.notesModel.find({user:id})
         if(!notes){
             throw new NotFoundException('Book not found.')
         }

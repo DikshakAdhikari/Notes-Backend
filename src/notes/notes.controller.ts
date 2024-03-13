@@ -29,7 +29,7 @@ export class NotesController {
     async getNotes(
         @Param('id')
         id:string
-    ): Promise<Notes> {
+    ): Promise<Notes[]> {
         return this.notesService.findById(id)
     }
 
