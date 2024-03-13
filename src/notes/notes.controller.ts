@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { Notes } from './schemas/notes.schema';
 import { CreateNotesDto } from './dto/create-notes.dto';
@@ -37,6 +37,14 @@ export class NotesController {
         notes: UpdateNotesDto
     ): Promise<Notes> {
         return this.notesService.updateById(id, notes)
+    }
+
+    @Delete(':id')
+    async deleteNotes(
+        @Param('id')
+        id:string
+    ): Promise<Notes> {
+        return this.notesService.deleteById(id)
     }
 }
 
