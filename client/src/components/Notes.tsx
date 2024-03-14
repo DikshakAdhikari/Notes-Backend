@@ -94,7 +94,7 @@ const Notes: React.FC = () => {
         throw new Error("Network Problem!");
       }
       const data= await res.json();
-      console.log(data);
+
       setToggle(!toggle);
       setFormData({
         title:'',
@@ -108,8 +108,18 @@ const Notes: React.FC = () => {
     }
   };
 
+  const handleLogout= ()=> {
+    localStorage.clear();
+    alert('Logged out successfully!')
+    router.push('/')
+  }
+
   return (
     <div className='flex flex-col gap-5'>
+      <div className=' flex justify-between w-[100vw] p-5 px-28'>
+        <div className=' text-2xl font-semibold text-red-600 '>Note Tracker</div>
+        <button onClick={handleLogout} className=' px-8 py-3 bg-cyan-500 rounded-md font-semibold text-white'>Logout</button>
+      </div>
       <form className="max-w-md mx-auto mt-8" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title" className="block mb-2 font-semibold text-gray-600">Title:</label>
@@ -145,22 +155,24 @@ const Notes: React.FC = () => {
       </form>
       <div className="flex flex-col items-center">
         <div className="text-2xl font-medium my-10">My Notes</div>
+        {notes.length === 0 && <div>No notes available! Create now to see</div>}
         <div className="flex flex-wrap justify-center">
-          {notes?.map((note, index) => (
-            <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 flex flex-col gap-5 p-3" key={index}>
-              <div className="border-2 bg-yellow-100 border-gray-500 rounded-md flex flex-col justify-between">
-                <div className="p-5">
-                  <div className="font-semibold mb-3 text-xl">{note.title}</div>
-                  <div>{note.description}</div>
-                </div>
-                <div className="m-3 flex justify-between">
-                  <button onClick={() => handleUpdate(note._id)} className="bg-green-600 p-2 px-5 rounded-md text-white">Edit</button>
-                  <button onClick={() => handleDelete(note._id)} className="bg-red-600 p-2 rounded-md text-white">Delete</button>
-                </div>
-              </div>
-            </div>
-          ))}
+  {notes?.map((note, index) => (
+    
+      <div key={note._id} className="border-2 m-3 bg-yellow-100 border-gray-500 rounded-md flex flex-col justify-between h-full">
+        <div className="p-5 flex-grow"> 
+          <div className="font-semibold mb-3 text-xl">{note.title}</div>
+          <div>{note.description}</div>
         </div>
+        <div className="m-3 flex gap-3 justify-between">
+          <button onClick={() => handleUpdate(note._id)} className="bg-green-600 p-2 px-5 rounded-md text-white">Edit</button>
+          <button onClick={() => handleDelete(note._id)} className="bg-red-600 p-2 rounded-md text-white">Delete</button>
+        </div>
+      </div>
+
+  ))}
+</div>
+
       </div>
     </div>
   );

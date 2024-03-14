@@ -14,8 +14,6 @@ interface Note {
 }
 
 const MyNotes: React.FC<{ toggle: boolean }> = ({ toggle }) => {
-  console.log(toggle);
-
   const router = useRouter();
   const [ifDelete, setIfDelete] = useState<boolean>(false);
   const [notes, setNotes] = useState<Note[]>([]);
