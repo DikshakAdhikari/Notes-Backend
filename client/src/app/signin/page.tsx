@@ -2,11 +2,8 @@
 import Signin from "@/components/Signin";
 import { FunctionComponent } from "react";
 
-interface pageProps {
-    
-}
- 
-const page: FunctionComponent<pageProps> = () => {
+
+const page: FunctionComponent= () => {
     return ( 
       <div >
          <Signin />  
