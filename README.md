@@ -13,7 +13,7 @@ This application provides users with the following features
 - Provide all CRUD operations in app
 - Server is Highly opinionated. Follows the design paradigm of "convention over configuration".
 
-##Frontend Deployment Steps at Vercel- 
+## Frontend Deployment Steps at Vercel- 
 
 - Go to vercel -> add new -> project
 - Choose appropriate Github repository to deploy
@@ -22,7 +22,7 @@ This application provides users with the following features
 - Give your deployment project a unique name
 - Now we're ready for our frontend deployment
 
-  ##Backend Deployment Steps at AWS Lambda-
+  ## Backend Deployment Steps at AWS Lambda-
 
   
 
