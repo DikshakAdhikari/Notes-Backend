@@ -38,7 +38,7 @@ const apiNestHandlerFunction = new Function(this, "ApiNestHandler", {
 });
 ```
 
--Next to the main.ts file, create a new lambda.ts file. This file will be the entry point of our Lambda function.
+- Next to the main.ts file, create a new lambda.ts file. This file will be the entry point of our Lambda function.
 
 ```bash
 // lambda.ts
@@ -102,7 +102,7 @@ module.exports = function (options, webpack) {
 };
 ```
 
--create a build-lambda script in your package.json file! 
+- create a build-lambda script in your package.json file! 
 
 ```bash
 {
