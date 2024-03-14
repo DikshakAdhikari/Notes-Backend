@@ -54,7 +54,6 @@ const page = () => {
   return (
     <div>
       <Notes  />
-      {/* <MyNotes toggle= {toggle} /> */}
     </div>
   )
 }
