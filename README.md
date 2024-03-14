@@ -31,11 +31,75 @@ This application provides users with the following features
 ```bash
   // LambdaNestStack in stack.ts
 const apiNestHandlerFunction = new Function(this, "ApiNestHandler", {
-  code: Code.fromAsset("api/dist"), // 👈 This is crucial
+  code: Code.fromAsset("api/dist"), 
   runtime: Runtime.NODEJS_18_X,
   handler: "main.handler",
-  environment: {}, // 👈 You might need env variables
+  environment: {}, 
 });
+```
+
+-Next to the main.ts file, create a new lambda.ts file. This file will be the entry point of our Lambda function.
+
+```bash
+// lambda.ts
+import { NestFactory } from '@nestjs/core';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import serverlessExpress from '@vendia/serverless-express';
+import { Context, Handler } from 'aws-lambda';
+import express from 'express';
+
+import { AppModule } from './app.module';
+
+let cachedServer: Handler;
+
+async function bootstrap() {
+  if (!cachedServer) {
+    const expressApp = express();
+    const nestApp = await NestFactory.create(
+      AppModule,
+      new ExpressAdapter(expressApp),
+    );
+
+    nestApp.enableCors();
+
+    await nestApp.init();
+
+    cachedServer = serverlessExpress({ app: expressApp });
+  }
+
+  return cachedServer;
+}
+
+const handler = async (event: any, context: Context, callback: any) => {
+  const server = await bootstrap();
+  return server(event, context, callback);
+};
+
+module.exports.handler = handler;
+```
+- Let's start by creating a new webpack.config.js file in our API package. This file will define our Webpack configuration.
+
+  ```bash
+module.exports = function (options, webpack) {
+  return {
+    ...options,
+    entry: ['./src/lambda.ts'],
+    externals: [],
+    output: {
+      ...options.output,
+      libraryTarget: 'commonjs2',
+    },
+    plugins: [
+      ...options.plugins,
+      new webpack.IgnorePlugin({
+        checkResource(resource) {
+          // Ignoring non-essential modules for Lambda deployment
+          return lazyImports.includes(resource);
+        },
+      }),
+    ],
+  };
+};
 ```
 
   
