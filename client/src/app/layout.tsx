@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dikshak | URL Shortner",
-  description: "Advanced URL Shortner",
+  title: "Dikshak | NOTES APP",
+  description: "Advanced Notes App",
 };
 
 export default function RootLayout({

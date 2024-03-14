@@ -33,6 +33,14 @@ export class NotesController {
         return this.notesService.findById(id)
     }
 
+    @Get('/particular/:id')
+    async getParticularNote(
+        @Param('id')
+        id:string
+    ): Promise<Notes> {
+        return this.notesService.findParticularId(id)
+    }
+
     @Put(':id')
     async updateNotes(
         @Param('id')

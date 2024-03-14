@@ -1,7 +1,10 @@
 import { BASE_URL } from "@/Secrets";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const LoginPage: React.FC = () => {
+  const router= useRouter()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,7 +24,7 @@ const LoginPage: React.FC = () => {
       const res= await fetch(`${BASE_URL}/auth/login`, {
         method:"POST",
         headers:{
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData)
       });
@@ -29,7 +32,10 @@ const LoginPage: React.FC = () => {
         throw new Error('Network problem!')
       }
       const data= await res.json();
-      
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('userId', data.userId)
+      router.push('/my-notes')
+       
     }catch(err){
       console.log(err);
       
@@ -37,7 +43,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">
           Login
@@ -48,7 +54,7 @@ const LoginPage: React.FC = () => {
               htmlFor="email"
               className="block text-gray-700 font-semibold mb-2"
             >
-              Email Address
+              Email 
             </label>
             <input
               type="email"
@@ -87,6 +93,7 @@ const LoginPage: React.FC = () => {
           </div>
         </form>
       </div>
+        <div className=" mt-3">Not registered yet? <Link  href={'/'}>SignUp of continue</Link></div>
     </div>
   );
 };

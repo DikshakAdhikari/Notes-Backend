@@ -31,7 +31,21 @@ export class NotesService {
 
         const notes= await this.notesModel.find({user:id})
         if(!notes){
-            throw new NotFoundException('Book not found.')
+            throw new NotFoundException('Note not found.')
+        }
+        return notes;
+    }
+
+    async findParticularId(id: string): Promise<Notes> {
+        const isValidId= mongoose.isValidObjectId(id);
+
+        if(!isValidId){
+            throw new BadRequestException('Please enter correct id.')
+        }
+
+        const notes= await this.notesModel.findById(id)
+        if(!notes){
+            throw new NotFoundException('Note not found.')
         }
         return notes;
     }

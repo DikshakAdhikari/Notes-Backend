@@ -1,4 +1,5 @@
 import { BASE_URL } from "@/Secrets";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const SignupPage: React.FC = () => {
@@ -40,7 +41,7 @@ const SignupPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">
           Sign Up
@@ -68,7 +69,7 @@ const SignupPage: React.FC = () => {
               htmlFor="email"
               className="block text-gray-700 font-semibold mb-2"
             >
-              Email Address
+              Email 
             </label>
             <input
               type="email"
@@ -107,6 +108,7 @@ const SignupPage: React.FC = () => {
           </div>
         </form>
       </div>
+      <div className=" mt-3">Already Registered? <Link  href={'/signin'}>Login of continue</Link></div>
     </div>
   );
 };

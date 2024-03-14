@@ -9,7 +9,7 @@ interface pageProps {
 const page: FunctionComponent<pageProps> = () => {
     return ( 
       <div >
-         <Signin />    
+         <Signin />  
         </div>
      );
 }
