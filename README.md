@@ -22,7 +22,7 @@ This application provides users with the following features
 - Give your deployment project a unique name
 - Now we're ready for our frontend deployment
 
-  ## Backend Deployment Steps at AWS Lambda-
+## Backend Deployment Steps at AWS Lambda-
 
   
 
