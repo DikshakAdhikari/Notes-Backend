@@ -26,10 +26,16 @@ This application provides users with the following features
 
 **Setting Up the Infrastructure with AWS CDK**
 
-- To deploy this project run
+- In the lib/my-stack.ts file, begin with the core of your setup: the Lambda function.
 
 ```bash
-  npm run deploy
+  // LambdaNestStack in stack.ts
+const apiNestHandlerFunction = new Function(this, "ApiNestHandler", {
+  code: Code.fromAsset("api/dist"), // 👈 This is crucial
+  runtime: Runtime.NODEJS_18_X,
+  handler: "main.handler",
+  environment: {}, // 👈 You might need env variables
+});
 ```
 
   
