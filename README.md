@@ -1,4 +1,4 @@
-# URL Shortner
+# Note Taking Application
 
 **Introduction**  
 
