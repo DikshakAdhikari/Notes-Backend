@@ -79,7 +79,7 @@ module.exports.handler = handler;
 ```
 - Let's start by creating a new webpack.config.js file in our API package. This file will define our Webpack configuration.
 
-  ```bash
+```bash
 module.exports = function (options, webpack) {
   return {
     ...options,
@@ -89,9 +89,37 @@ module.exports = function (options, webpack) {
       ...options.output,
       libraryTarget: 'commonjs2',
     },
+    plugins: [
+      ...options.plugins,
+      new webpack.IgnorePlugin({
+        checkResource(resource) {
+          // Ignoring non-essential modules for Lambda deployment
+          return lazyImports.includes(resource);
+        },
+      }),
+    ],
   };
 };
 ```
+
+-create a build-lambda script in your package.json file! 
+
+```bash
+{
+  "scripts": {
+    "build-lambda": "nest build --webpack --webpackPath webpack.config.js"
+  }
+}
+```
+
+- Deploying the NestJS App: To the Cloud!
+
+```bash
+npm run build-lambda
+cdk deploy
+```
+
+  
 
   
 
